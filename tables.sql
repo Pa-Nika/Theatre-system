@@ -22,7 +22,8 @@ CREATE TABLE Author (
     age_during_writing SMALLINT,
     name VARCHAR,
     title varchar NOT NULL,
-    genre_id BIGINT NOT NULL REFERENCES Genre
+    genre_id BIGINT NOT NULL REFERENCES Genre,
+    date_of_birth DATE NOT NULL
 );
 
 CREATE TABLE Employee_type (
@@ -129,15 +130,15 @@ CREATE TABLE Actor_playing_role (
 
 CREATE TABLE Place (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    number NUMERIC(3) NOT NULL UNIQUE,
-    is_free BOOLEAN
+    number NUMERIC(3) NOT NULL UNIQUE
 );
 
 CREATE TABLE Ticket (
     is_preliminarily_sold BOOLEAN NOT NULL,
-    place_id BIGINT NOT NULL UNIQUE REFERENCES Place(id),
+    place SMALLINT NOT NULL,
     price SMALLINT NOT NULL,
-    performance_id BIGINT NOT NULL REFERENCES Performance(id)
+    performance_id BIGINT NOT NULL REFERENCES Performance(id),
+    date_id BIGINT REFERENCES Date_of_playing(id) NOT NULL
 );
 
 CREATE TABLE Musician (
@@ -181,11 +182,11 @@ VALUES (1,'10-12-1997', 1, '23-10-2020', 0, 35.000, 'Крышенко Иван �
        (4, '14-06-1969', 1, '13-07-1999', 1, 70.000, 'Демчук Роман Евгеньевич', age(timestamp '14-06-1969'));
 
 INSERT INTO author
-(country, age_during_writing, name, title, genre_id)
-VALUES ('Англия', 37, 'Уильям Шекспир', 'Гамлет', 3),
-       ('Россиская империя', 43, 'А.П. Чехов', 'Вишневый сад', 1),
-       ('СССР', 30, 'А.В. Вампилов', 'Утиная охота', 2),
-       ('Российская империя', 22, 'Ф. М. Достоевский', 'Преступление и наказание',3 );
+(country, age_during_writing, name, title, genre_id, date_of_birth)
+VALUES ('Англия', 37, 'Уильям Шекспир', 'Гамлет', 3, '26-04-1564'),
+       ('Россиская империя', 43, 'А.П. Чехов', 'Вишневый сад', 1, '29-01-1860'),
+       ('СССР', 30, 'А.В. Вампилов', 'Утиная охота', 2, '19-08-1937'),
+       ('Российская империя', 45, 'Ф. М. Достоевский', 'Преступление и наказание',3, '11-11-1821');
 
 INSERT INTO actor
 (employee_id, height, is_student)
@@ -226,23 +227,28 @@ INSERT INTO date_of_playing
 (date_of_performance, count_of_tickets, is_tour, season)
 VALUES ('20-03-2021', 150, false, date_part('years', age(timestamp '20-03-2021', timestamp '01-09-1980'))),
        ('12-09-2000', 150, false, date_part('years', age(timestamp '12-09-2000', timestamp '01-09-1980'))),
-       ('24-10-2025', 150, true, date_part('years', age(timestamp '24-10-2025', timestamp '01-09-1980')));
+       ('24-10-2025', 150, true, date_part('years', age(timestamp '24-10-2025', timestamp '01-09-1980'))),
+       ('31-03-2019', 150, false, date_part('years', age(timestamp '31-03-2019', timestamp '01-09-1980'))),
+       ('15-09-2010', 150, false, date_part('years', age(timestamp '15-09-2010', timestamp '01-09-1980')));
 
 INSERT INTO date_performance
 (performance_id, date_id)
 VALUES (1, 1),
        (1, 2),
        (2, 2),
-       (2, 3);
+       (2, 3),
+       (3, 4),
+       (1, 5);
 
 INSERT INTO place
-(number, is_free)
-VALUES (1, true),
-       (2, true);
+(number)
+VALUES (1), (2), (3), (4), (5);
 
 INSERT INTO ticket
-(is_preliminarily_sold, place_id, price, performance_id)
-VALUES (false, 1, 100, 1);
+(is_preliminarily_sold, place, price, performance_id, date_id)
+VALUES (false, 1, 100, 1, 1),
+       (true, 2, 100, 2, 2),
+       (false, 1, 100, 1, 5);
 
 INSERT INTO subscription
 (author_id, genre_id)
@@ -264,7 +270,8 @@ FROM performance
     JOIN date_of_playing date on dp.date_id = date.id
     JOIN author author_of_performance on author_of_performance.id = Performance.author_id
     JOIN genre g on g.id = author_of_performance.genre_id
-    WHERE season = 40;
+    ORDER BY date_of_performance;
+
 --2.2
 SELECT author_of_performance.name, author_of_performance.title, g.genre_class, date.date_of_performance,date.season
 FROM performance
@@ -273,5 +280,19 @@ FROM performance
     JOIN author author_of_performance on author_of_performance.id = Performance.author_id
     JOIN genre g on g.id = author_of_performance.genre_id
     WHERE date_of_performance < current_date and genre_class = 'Трагедия'
-      and date_of_performance > '10-01-1990' and date_of_performance < '10-01-2020'; --сть один спектакль в 45 сезоне
+      and date_of_performance > '10-01-1990' and date_of_performance < '10-01-2020'; --есть один спектакль в 45 сезоне
 
+-- 4
+SELECT Author_of_performance.name FROM performance
+    JOIN Author Author_of_performance on Author_of_performance.id = Performance.author_id
+    WHERE Author_of_performance.date_of_birth > '01-01-1800';
+
+-- 12
+SELECT count(price) FROM ticket
+    JOIN Performance P on P.id = Ticket.performance_id
+    JOIN Author A on A.id = P.author_id
+    JOIN Date_Performance DP on P.id = DP.performance_id
+    JOIN Date_of_playing Dop on Dop.id = DP.date_id
+    WHERE title = 'Гамлет' and date_of_performance = '15-09-2010';
+
+-- 13
