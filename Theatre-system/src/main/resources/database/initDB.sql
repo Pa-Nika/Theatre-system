@@ -8,3 +8,11 @@ CREATE TABLE IF NOT EXISTS clients
     phone VARCHAR(50)  NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS a1
+(
+    id    SERIAL PRIMARY KEY ,
+    users  VARCHAR(200) NOT NULL ,
+    home VARCHAR(254) NOT NULL ,
+    family VARCHAR(50)  NOT NULL
+);
+

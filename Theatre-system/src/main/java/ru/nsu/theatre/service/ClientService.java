@@ -10,13 +10,13 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-//@AllArgsConstructor
+@AllArgsConstructor
 public class ClientService {
 
-//    @Autowired
+    @Autowired
     private ClientRepository clientRepository;
 
-//    @Transactional
+    @Transactional
     public List<Client> getAllClients() {
         return clientRepository.findAll();
     }

@@ -31,6 +31,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.postgresql:postgresql:42.2.27'
 //	implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.27'
 //	runtimeOnly 'org.postgresql:postgresql'
 //	testImplementation "org.testcontainers:postgresql:1.17.6"
