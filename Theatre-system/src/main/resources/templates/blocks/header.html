@@ -12,8 +12,58 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/directors">Спектакли</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/add">Гастроли</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/add">Билеты</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                           data-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                            Редактировать
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Работники</a></li>
+                            <li><a class="dropdown-item" href="#">Спектакли</a></li>
+                            <li><a class="dropdown-item" href="#">Гастроли</a></li>
+                            <li><a class="dropdown-item" href="#">Билеты</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <script>
+        $(document).ready(function(){
+            $('.dropdown-toggle').dropdown();
+
+            $(document).on('click', function(e){
+                if($('.dropdown-menu').hasClass('show')){
+                    if(!$(e.target).closest('.dropdown-menu').length && !$(e.target).closest('.dropdown-toggle').length){
+                        $('.dropdown-toggle').dropdown('toggle');
+                    }
+                }
+            });
+        });
+    </script>
+
 </div>
+
+
+
+<!--$(document).click(function (e) {-->
+<!--var target = e.target;-->
+<!--if (!$(target).is('.dropdown-toggle') && !$(target).parents().is('.dropdown-toggle')) {-->
+<!--$('.dropdown').hide();-->
+<!--}-->
+<!--// если нажал на элемент с выпадающим список, то выполняй следующее...-->
+<!--if ($(target).is('.dropdown-toggle')) {-->
+<!--// 1. получить dropdown связанный с .dropdown-toggle-->
+<!--var thisDropdown = $(target).next('.dropdown');-->
+<!--// 2. найти все .dropdown и исключить из него .dropdown связанный с текущим .dropdown-toggle; скрыть их-->
+<!--$('.dropdown').not(thisDropdown).hide();-->
+<!--}-->
+<!--});-->
+<!--});-->

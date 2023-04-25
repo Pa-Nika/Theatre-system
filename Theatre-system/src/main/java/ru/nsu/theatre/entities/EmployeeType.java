@@ -10,13 +10,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "Director")
-public class Director {
+@Table(name = "employee_type")
+public class EmployeeType {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "employee_id")
-    private Integer employee_id;
+    @Column(name = "type")
+    private Integer type;
 }
