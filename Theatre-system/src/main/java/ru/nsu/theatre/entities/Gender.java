@@ -3,6 +3,7 @@ package ru.nsu.theatre.entities;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -10,11 +11,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "employee_type")
-public class EmployeeType {
+@Table(name = "gender")
+public class Gender {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_seq")
+    @GenericGenerator(name = "pet_seq", strategy = "increment")
     private Long id;
 
     @Column(name = "type")

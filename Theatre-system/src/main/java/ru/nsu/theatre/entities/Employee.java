@@ -20,8 +20,10 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(name = "type_id")
-    private Long type_id;
+//    @Column(name = "type_id")
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private EmployeeType type_id;
 
     @Column(name = "date_of_birth")
     private Date date_of_birth;
