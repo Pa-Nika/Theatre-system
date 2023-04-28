@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Театр</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="shortcut icon"  type="image/x-icon" href="/img/icon.ico" >
+  <div th:insert="blocks/libs :: libs"></div>
+</head>
+
+<body>
+<div th:insert="blocks/header :: navigation"></div>
+
+<div class="back">
+  <div class="p-4 p-md-5 mb-5 mt-4 rounded text-bg-secondary">
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 fst-italic text-center">Редактирование жанров</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div th:each="el : ${genre}">
+    <form method="post">
+        <input type="text" th:value="${el.genre_class}" name="genreClass" placeholder="Введите жанр" class="form-control"><br>
+        <button type="submit" class="btn btn-success">Изменить жанр</button>
+    </form><br>
+    <button class="btn btn-primary" type="button">
+      <a class="nav-link active" aria-current="page" href="/add/genre">Вернуться назад</a>
+    </button>
+  </div><br>
+</div>
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>

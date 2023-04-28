@@ -31,6 +31,9 @@ public class Employee {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "gender_id")
+    private Integer gender;
+
 //    @Column(name = "age")
 //    private Period age;
 }

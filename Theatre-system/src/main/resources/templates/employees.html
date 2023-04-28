@@ -26,32 +26,33 @@
 
     <div class="container ml-5 mr-5 ">
         <div class="col-md-12">
-            <form class="needs-validation" novalidate="">
-                <div class="row g-3">
+            <form class="needs-validation" novalidate="" method="post" action="/employees">
 
-                    <div class="col-md-3">
-                        <label for="employee" class="form-label text-center">Должность</label>
-                        <select class="form-select" id="employee">
-                            <option value="">Любая</option>
-                            <option th:each="types: ${employeeTypes}"
-                                    th:text="${types.type}">
-                            </option>
-                        </select>
+<!--                <form action="/employees" method="post">-->
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label for="type" class="form-label text-center">Должность</label>
+                            <select class="form-select " id="type" name="type">
+                                <option value="">Любая</option>
+                                <option th:each="types: ${employeeTypes}"
+                                        th:text="${types.type}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="gender" class="form-label text-center">Пол</label>
+                            <select class="form-select" id="gender" name="gender">
+                                <option value="">Любой</option>
+                                <option th:each="genders: ${genders}"
+                                        th:text="${genders.type}">
+                                </option>
+                            </select>
+                        </div>
+
                     </div>
 
-                    <div class="col-md-3">
-                        <label for="employee1" class="form-label text-center">Пол</label>
-                        <select class="form-select" id="employee1">
-                            <option value="">Любой</option>
-                            <option th:each="genders: ${genders}"
-                                    th:text="${genders.type}">
-                            </option>
-                        </select>
-                    </div>
-
-                </div>
-
-                <button class="btn btn-primary pull-right mt-5" type="button">Найти</button>
+                    <button class="btn btn-primary pull-right mt-5" type="submit" >Найти</button>
             </form>
         </div>
 
@@ -77,6 +78,8 @@
             </div>
         </table>
     </div>
+
+    <div th:insert="blocks/footer :: footer"></div>
 
 </body>
 </html>
