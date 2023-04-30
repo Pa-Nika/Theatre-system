@@ -10,10 +10,10 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Embeddable
-public class DirectorPerformanceId implements Serializable {
+public class DatePerformanceId implements Serializable {
 
-    @Column(name = "director_id")
-    private Long directorId;
+    @Column(name = "date_id")
+    private Long dateId;
 
     @Column(name = "performance_id")
     private Long performanceId;

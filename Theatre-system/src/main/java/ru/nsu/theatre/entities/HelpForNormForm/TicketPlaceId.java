@@ -6,15 +6,14 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-
 @Getter
 @Setter
 @Embeddable
-public class DirectorPerformanceId implements Serializable {
+public class TicketPlaceId implements Serializable {
 
-    @Column(name = "director_id")
-    private Long directorId;
+    @Column(name = "ticket_id")
+    private Long ticketId;
 
-    @Column(name = "performance_id")
-    private Long performanceId;
+    @Column(name = "place_id")
+    private Long placeId;
 }

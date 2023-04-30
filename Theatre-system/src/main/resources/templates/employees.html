@@ -53,7 +53,7 @@
                     </div>
 
                     <button class="btn btn-primary pull-right mt-5" type="submit" >Найти</button>
-            </form>
+            </form><br>
         </div>
 
         <table class="table table-hover table-sm mt-5" >
@@ -61,7 +61,14 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col" class="text-center">Ребятишка</th>
+                <th scope="col" class="text-center">Имя</th>
+                <th scope="col" class="text-center">Должность</th>
+                <th scope="col" class="text-center">Пол</th>
+                <th scope="col" class="text-center">Дата рождения</th>
+                <th scope="col" class="text-center">Дата начала работы</th>
+                <th scope="col" class="text-center">Зарплата (тыс)</th>
+                <th scope="col" class="text-center">Количество детей</th>
+                <th scope="col" class="text-center">Возраст</th>
             </tr>
             </thead>
 
@@ -69,10 +76,15 @@
                 <tbody>
                 <tr>
                     <th scope="row" th:text="${element.id}"></th>
-                    <td>
-                        <p th:text="${element.name}" class="text-center"></p>
-                        <p th:text="${element.type.type}" class="text-center"></p>
-                    </td>
+                    <td><p th:text="${element.name}" class="text-center"></p></td>
+                    <td><p th:text="${element.type.type}" class="text-center"></p></td>
+                    <td><p th:text="${element.gender.type}" class="text-center"></p></td>
+                    <td><p th:text="${element.getNormDate()}" class="text-center"></p></td>
+<!--                    <td><p th:text="${#dates.format(element.dateOfBirth, 'dd.MM.yyyy')}" class="text-center"></p></td>-->
+                    <td><p th:text="${#dates.format(element.work, 'dd.MM.yyyy')}" class="text-center"></p></td>
+                    <td><p th:text="${element.salary}" class="text-center"></p></td>
+                    <td><p th:text="${element.children}" class="text-center"></p></td>
+                    <td><p th:text="${element.calculateAge()}" class="text-center"></p></td>
                 </tr>
                 </tbody>
             </div>
