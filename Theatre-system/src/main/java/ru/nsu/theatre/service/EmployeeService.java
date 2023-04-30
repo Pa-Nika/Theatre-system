@@ -2,6 +2,7 @@
 //
 //import lombok.AllArgsConstructor;
 //import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.jdbc.core.JdbcTemplate;
 //import org.springframework.stereotype.Service;
 //import ru.nsu.theatre.entities.Employee;
 //import ru.nsu.theatre.repository.EmployeeRepository;
@@ -13,11 +14,10 @@
 //@AllArgsConstructor
 //public class EmployeeService {
 //
-//    @Autowired
-//    private EmployeeRepository employeeRepository;
+//    private JdbcTemplate jdbcTemplate;
 //
-//    @Transactional
-//    public List<Employee> getAllEmployees() {
-//        return employeeRepository.findAll();
+//    public void insertData(String data) {
+//        jdbcTemplate.update("INSERT INTO my_table (my_column) VALUES (?)", data);
+//        jdbcTemplate.update("CALL my_trigger()"); // вызываем триггер после вставки данных
 //    }
 //}

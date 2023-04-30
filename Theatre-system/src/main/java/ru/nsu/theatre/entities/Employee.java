@@ -4,10 +4,9 @@ import javax.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Date;
-import java.time.Duration;
-import java.time.Period;
 
 @Data
 @Getter
@@ -17,23 +16,25 @@ import java.time.Period;
 public class Employee {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_seq")
+    @GenericGenerator(name = "pet_seq", strategy = "increment")
+    private Long id;
 
-//    @Column(name = "type_id")
     @ManyToOne
     @JoinColumn(name = "type_id")
-    private EmployeeType type_id;
+    private EmployeeType type;
 
     @Column(name = "date_of_birth")
     private Date date_of_birth;
 
-    @Column(name = "name")
+    @Column(name = "user_name")
     private String name;
 
-    @Column(name = "gender_id")
-    private Integer gender;
+    @ManyToOne
+    @JoinColumn(name = "gender_id")
+    private Gender gender;
 
-//    @Column(name = "age")
-//    private Period age;
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.REMOVE)
+    private Director director;
+
 }

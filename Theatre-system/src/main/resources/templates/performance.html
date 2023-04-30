@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Театр</title>
+  <link type="image/x-icon" href="/img/icon.ico" rel="shortcut icon">
+  <link href="/css/style.css"  rel="stylesheet" type="text/css">
+
+  <div th:insert="blocks/libs :: libs"></div>
+
+</head>
+
+<body>
+<div th:insert="blocks/header :: navigation"></div>
+
+<div class="back">
+  <div class="p-4 p-md-5 mb-5 mt-4 rounded text-bg-secondary">
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 fst-italic text-center">Спектакли</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container ml-5 mr-5 ">
+  <table class="table table-hover table-sm mt-5" >
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" class="text-center">Спектакль</th>
+      <th scope="col" class="text-center">Автор</th>
+      <th scope="col" class="text-center">Жанр</th>
+      <th scope="col" class="text-center">Возрастное ограничение</th>
+      <th scope="col" class="text-center">Дата премьеры</th>
+      <th scope="col" class="text-center">Длительность (мин)</th>
+    </tr>
+    </thead>
+
+    <div th:each="element : ${performances}"scope="row">
+      <tbody>
+      <tr>
+        <th scope="row" th:text="${element.id}"></th>
+        <td><p th:text="${element.author.title}" class="text-center"></p></td>
+        <td><p th:text="${element.author.name}" class="text-center"></p></td>
+        <td><p th:text="${element.author.genre.genre_class}" class="text-center"></p></td>
+        <td><p th:text="${element.limit}" class="text-center"></p></td>
+        <td><p th:text="${#dates.format(element.premiere, 'dd.MM.yyyy')}" class="text-center"></p></td>
+        <td><p th:text="${element.time}" class="text-center"></p></td>
+      </tr>
+      </tbody>
+    </div>
+  </table>
+</div>
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>

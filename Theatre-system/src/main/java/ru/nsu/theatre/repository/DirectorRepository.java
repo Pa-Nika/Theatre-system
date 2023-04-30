@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface DirectorRepository extends CrudRepository<Director, Integer> {
-    List<Director> findAll();
+//    List<Director> findAll();
 }

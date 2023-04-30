@@ -36,7 +36,6 @@
                 <th scope="col">#</th>
                 <th scope="col-mt-8" class="text-center">Название жанра</th>
                 <th scope="col" class="text-center"></th>
-                <th scope="col" class="text-center"></th>
             </tr>
             </thead>
 
@@ -55,22 +54,12 @@
                             <span class="visually-hidden">Dismiss</span>
                         </button>
                     </td>
-                    <td>
-                        <form th:action=" '/remove/genre/' + ${genre.id}" method="post">
-                            <button class="btn btn-outline-danger rounded-circle p-2 lh-1 btn-icon" type="submit">
-                                <i class="fa fa-trash text-center"></i>
-                                <span class="visually-hidden">Dismiss</span>
-                            </button>
-                        </form>
-                    </td>
                 </tr>
             </div>
         </table>
     </div>
 
-    <footer class="container">
-        <p class="float-end"><a href="#">Back to top</a></p>
-    </footer>
+    <div th:insert="blocks/footer :: footer"></div>
 
 </body>
 </html>

@@ -3,8 +3,11 @@ package ru.nsu.theatre.entities;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Getter
@@ -17,6 +20,11 @@ public class Director {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "employee_id")
-    private Integer employee_id;
+    @OneToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Employee employee;
+
+    @OneToMany(mappedBy = "director", cascade = CascadeType.REMOVE)
+    private List<DirectorPerformance> performances;
 }

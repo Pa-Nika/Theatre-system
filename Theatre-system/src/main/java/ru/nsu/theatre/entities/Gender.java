@@ -21,4 +21,5 @@ public class Gender {
 
     @Column(name = "type")
     private String type;
+
 }

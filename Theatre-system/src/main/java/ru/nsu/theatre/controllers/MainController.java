@@ -16,7 +16,6 @@ public class MainController {
     @Autowired
     private GenreRepository genreRepository;
 
-
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("title", "Главная страница");

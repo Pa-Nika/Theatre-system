@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Театр</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="shortcut icon"  type="image/x-icon" href="/img/icon.ico" >
+  <div th:insert="blocks/libs :: libs"></div>
+</head>
+
+<body>
+<div th:insert="blocks/header :: navigation"></div>
+
+<div class="back">
+  <div class="p-4 p-md-5 mb-5 mt-4 rounded text-bg-secondary">
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 fst-italic text-center">Редактирование сотрудников театра</h1>
+    </div>
+  </div>
+</div>
+
+<!--<div class="container mt-3">-->
+<!--  <form action="/add/genre" method="post">-->
+<!--    <input type="text" name="genreClass" placeholder="Введите жанр спектакля" class="form-control"><br>-->
+<!--    <button type="submit" class="btn btn-success">Добавить сотрудника</button>-->
+<!--  </form>-->
+<!--</div>-->
+
+<div class="container ml-5 mr-5 ">
+  <table class="table table-hover table-sm mt-5" >
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col-mt-8" class="text-center">Сотрудник</th>
+      <th scope="col" class="text-center">Должность</th>
+      <th scope="col" class="text-center"></th>
+      <th scope="col" class="text-center"></th>
+    </tr>
+    </thead>
+
+    <div th:each="employee : ${employees}" scope="row">
+      <tbody>
+      <tr>
+        <th scope="row" th:text="${employee.id}"></th>
+        <td>
+          <p th:text="${employee.name}" class="text-center"></p>
+        </td>
+        <td>
+          <button class="btn btn-outline-primary rounded-circle p-2 lh-1 btn-icon" type="button">
+            <a th:href=" '/edit/employee/' + ${employee.id}">
+              <i class="fa fa-pencil text-center"></i>
+            </a>
+            <span class="visually-hidden">Dismiss</span>
+          </button>
+        </td>
+        <td>
+          <form th:action=" '/remove/employee/' + ${employee.id}" method="post">
+            <button class="btn btn-outline-danger rounded-circle p-2 lh-1 btn-icon" type="submit">
+              <i class="fa fa-trash text-center"></i>
+              <span class="visually-hidden">Dismiss</span>
+            </button>
+          </form>
+        </td>
+      </tr>
+    </div>
+  </table>
+</div>
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>

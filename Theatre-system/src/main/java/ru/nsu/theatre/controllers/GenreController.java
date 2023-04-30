@@ -65,7 +65,7 @@ public class GenreController {
     }
 
     @PostMapping("/remove/genre/{id}")
-    public String editGenreUpdate(@PathVariable(value = "id") long id, Model model) {
+    public String removeGenre(@PathVariable(value = "id") long id, Model model) {
         Genre genre = genreRepository.findById(id).orElseThrow();
         genreRepository.delete(genre);
         return "redirect:/add/genre";
