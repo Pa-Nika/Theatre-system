@@ -34,30 +34,41 @@
     <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col-mt-8" class="text-center">Сотрудник</th>
+      <th scope="col" class="text-center">Имя</th>
       <th scope="col" class="text-center">Должность</th>
+      <th scope="col" class="text-center">Пол</th>
+      <th scope="col" class="text-center">Дата рождения</th>
+      <th scope="col" class="text-center">Дата начала работы</th>
+      <th scope="col" class="text-center">Зарплата (руб)</th>
+      <th scope="col" class="text-center">Количество детей</th>
+      <th scope="col" class="text-center">Возраст</th>
       <th scope="col" class="text-center"></th>
       <th scope="col" class="text-center"></th>
     </tr>
     </thead>
 
-    <div th:each="employee : ${employees}" scope="row">
+    <div th:each="element : ${employees}" scope="row">
       <tbody>
       <tr>
-        <th scope="row" th:text="${employee.id}"></th>
-        <td>
-          <p th:text="${employee.name}" class="text-center"></p>
-        </td>
+        <th scope="row" th:text="${element.id}"></th>
+        <td><p th:text="${element.name}" class="text-center"></p></td>
+        <td><p th:text="${element.type.type}" class="text-center"></p></td>
+        <td><p th:text="${element.gender.type}" class="text-center"></p></td>
+        <td><p th:text="${element.getNormDateOfBirth()}" class="text-center"></p></td>
+        <td><p th:text="${element.getNormDateStartWork()}" class="text-center"></p></td>
+        <td><p th:text="${element.salary}" class="text-center"></p></td>
+        <td><p th:text="${element.children}" class="text-center"></p></td>
+        <td><p th:text="${element.calculateAge()}" class="text-center"></p></td>
         <td>
           <button class="btn btn-outline-primary rounded-circle p-2 lh-1 btn-icon" type="button">
-            <a th:href=" '/edit/employee/' + ${employee.id}">
+            <a th:href=" '/edit/employee/' + ${element.id}">
               <i class="fa fa-pencil text-center"></i>
             </a>
             <span class="visually-hidden">Dismiss</span>
           </button>
         </td>
         <td>
-          <form th:action=" '/remove/employee/' + ${employee.id}" method="post">
+          <form th:action=" '/remove/employee/' + ${element.id}" method="post">
             <button class="btn btn-outline-danger rounded-circle p-2 lh-1 btn-icon" type="submit">
               <i class="fa fa-trash text-center"></i>
               <span class="visually-hidden">Dismiss</span>

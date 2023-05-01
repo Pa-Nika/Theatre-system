@@ -21,8 +21,8 @@ public class DirectorPerformance {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Director director;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "performance_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "FK_DirectorPerformance_Performance"), insertable = false, updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Performance performance;
-
 }

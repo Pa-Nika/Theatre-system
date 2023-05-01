@@ -22,10 +22,8 @@ public class ActorPlayingRole {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Role role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "actor_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "FK_ActorPlayingRole_Actor"), insertable = false, updatable = false)
-    ////////////////////////??????????????????????
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Actor actor;
 
     @Column(name = "is_main")
@@ -33,5 +31,4 @@ public class ActorPlayingRole {
 
     @Column(name = "date_of_playing")
     private Date date;
-
 }

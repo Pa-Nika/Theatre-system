@@ -24,8 +24,11 @@
 
     <div class="container mt-3">
         <form action="/add/genre" method="post">
-            <input type="text" name="genreClass" placeholder="Введите жанр спектакля" class="form-control"><br>
-            <button type="submit" class="btn btn-success">Добавить жанр</button>
+            <input type="text" name="genreClass" placeholder="Введите жанр спектакля" class="form-control" required><br>
+            <button type="submit" class="btn btn-success">Добавить жанр</button><br>
+            <button class="btn btn-primary mt-2" type="button">
+                <a class="nav-link active" aria-current="page" href="/see/performance">Вернуться назад</a>
+            </button>
         </form>
     </div>
 
@@ -44,7 +47,7 @@
                 <tr>
                     <th scope="row" th:text="${genre.id}"></th>
                     <td>
-                        <p th:text="${genre.genre_class}" class="text-center"></p>
+                        <p th:text="${genre.getGenreClass}" class="text-center"></p>
                     </td>
                     <td>
                         <button class="btn btn-outline-primary rounded-circle p-2 lh-1 btn-icon" type="button">

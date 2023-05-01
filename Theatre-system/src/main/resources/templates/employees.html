@@ -25,10 +25,9 @@
     </div>
 
     <div class="container ml-5 mr-5 ">
-        <div class="col-md-12">
+        <header class="col-md-12">
             <form class="needs-validation" novalidate="" method="post" action="/employees">
 
-<!--                <form action="/employees" method="post">-->
                     <div class="row g-3">
                         <div class="col-md-3">
                             <label for="type" class="form-label text-center">Должность</label>
@@ -52,9 +51,9 @@
 
                     </div>
 
-                    <button class="btn btn-primary pull-right mt-5" type="submit" >Найти</button>
+                    <button class="btn btn-primary pull-left mt-5" type="submit" >Найти</button>
             </form><br>
-        </div>
+        </header>
 
         <table class="table table-hover table-sm mt-5" >
 
@@ -66,7 +65,7 @@
                 <th scope="col" class="text-center">Пол</th>
                 <th scope="col" class="text-center">Дата рождения</th>
                 <th scope="col" class="text-center">Дата начала работы</th>
-                <th scope="col" class="text-center">Зарплата (тыс)</th>
+                <th scope="col" class="text-center">Зарплата (руб)</th>
                 <th scope="col" class="text-center">Количество детей</th>
                 <th scope="col" class="text-center">Возраст</th>
             </tr>
@@ -79,9 +78,8 @@
                     <td><p th:text="${element.name}" class="text-center"></p></td>
                     <td><p th:text="${element.type.type}" class="text-center"></p></td>
                     <td><p th:text="${element.gender.type}" class="text-center"></p></td>
-                    <td><p th:text="${element.getNormDate()}" class="text-center"></p></td>
-<!--                    <td><p th:text="${#dates.format(element.dateOfBirth, 'dd.MM.yyyy')}" class="text-center"></p></td>-->
-                    <td><p th:text="${#dates.format(element.work, 'dd.MM.yyyy')}" class="text-center"></p></td>
+                    <td><p th:text="${element.getNormDateOfBirth()}" class="text-center"></p></td>
+                    <td><p th:text="${element.getNormDateStartWork()}" class="text-center"></p></td>
                     <td><p th:text="${element.salary}" class="text-center"></p></td>
                     <td><p th:text="${element.children}" class="text-center"></p></td>
                     <td><p th:text="${element.calculateAge()}" class="text-center"></p></td>

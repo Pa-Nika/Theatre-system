@@ -3,8 +3,6 @@ package ru.nsu.theatre.entities;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -26,10 +24,7 @@ public class Achievement {
     @Column(name = "title")
     private String title;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne
+    @JoinColumn(name = "actor_id")
     private Actor actor;
-
-//    @OneToOne
-//    @JoinColumn(name = "actor_id")
-//    private Actor actor;
 }

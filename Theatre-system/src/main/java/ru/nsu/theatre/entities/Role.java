@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -33,13 +35,15 @@ public class Role {
     @Column(name = "age")
     private Integer age;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "gender_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Gender gender;
 
     @Column(name = "height")
     private Integer height;
 
     @OneToOne(cascade = CascadeType.REMOVE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Performance performance;
 }

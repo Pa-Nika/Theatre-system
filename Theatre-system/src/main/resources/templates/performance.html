@@ -44,9 +44,9 @@
         <th scope="row" th:text="${element.id}"></th>
         <td><p th:text="${element.author.title}" class="text-center"></p></td>
         <td><p th:text="${element.author.name}" class="text-center"></p></td>
-        <td><p th:text="${element.author.genre.genre_class}" class="text-center"></p></td>
-        <td><p th:text="${element.limit}" class="text-center"></p></td>
-        <td><p th:text="${#dates.format(element.premiere, 'dd.MM.yyyy')}" class="text-center"></p></td>
+        <td><p th:text="${element.author.genre.genreClass}" class="text-center"></p></td>
+        <td><p th:text="${element.getNormAge()}" class="text-center"></p></td>
+        <td><p th:text="${element.getNormDatePremiere()}" class="text-center"></p></td>
         <td><p th:text="${element.time}" class="text-center"></p></td>
       </tr>
       </tbody>

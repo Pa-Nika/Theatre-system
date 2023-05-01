@@ -3,11 +3,9 @@ package ru.nsu.theatre.entities;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Getter
@@ -17,12 +15,12 @@ import java.util.List;
 public class Actor {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_seq")
+    @GenericGenerator(name = "pet_seq", strategy = "increment")
     private Long id;
 
     @OneToOne
     @JoinColumn(name = "employee_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Employee employee;
 
     @Column(name = "height")

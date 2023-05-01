@@ -2,6 +2,8 @@ package ru.nsu.theatre.entities.HelpForNormForm;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -13,8 +15,10 @@ import java.io.Serializable;
 public class DirectorPerformanceId implements Serializable {
 
     @Column(name = "director_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Long directorId;
 
     @Column(name = "performance_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Long performanceId;
 }

@@ -17,22 +17,56 @@
 <div class="back">
     <div class="p-4 p-md-5 mb-5 mt-4 rounded text-bg-secondary">
         <div class="col-md-12 px-0">
-            <h1 class="display-4 fst-italic text-center">Редактирование отрудника театра</h1>
+            <h1 class="display-4 fst-italic text-center">Редактирование сотрудника театра</h1>
         </div>
     </div>
 </div>
 
 <div class="container mt-3">
     <div th:each="el : ${employee}">
-        <form method="post">
-            <input type="text" th:value="${el.name}" name="genreClass" placeholder="Введите жанр" class="form-control"><br>
-            <button type="submit" class="btn btn-success">Изменить отрудника</button>
+        <form id="edit-form" method="post">
+            <label for="name">Имя:</label>
+            <input type="text" th:value="${el.name}" name="name" id="name" placeholder="Введите имя" class="form-control" required><br>
+
+            <label for="type">Должность:</label>
+            <select class="form-select " id="type" name="type">
+                <option th:text="${el.type.type}"></option>
+                <option th:each="types: ${employeeTypes}" th:unless="${types.type == el.type.type}" th:text="${types.type}"></option>
+            </select><br>
+
+            <label for="gender">Пол:</label>
+            <select class="form-select" id="gender" name="gender">
+                <option th:text="${el.gender.type}"></option>
+                <option th:each="genders: ${genders}" th:unless="${genders.type == el.gender.type}" th:text="${genders.type}"></option>
+            </select><br>
+
+            <label for="birthday">Дата рождения:</label>
+            <input type="text" th:value="${el.getNormDateOfBirth()}" class="form-control" id="birthday" name="birthday"
+                   autocomplete="off" required><br>
+
+            <label for="work">Дата начала работы в лучшем театре:</label>
+            <input type="text" th:value="${el.getNormDateStartWork()}" class="form-control" id="work" name="work"
+                   autocomplete="off" required><br>
+
+            <label for="salary">Заработная плата:</label>
+            <input type="text" th:value="${el.salary}" name="salary" id="salary" placeholder="Введите ЗП сотрудника"
+                   class="form-control" onkeyup="validateSalary(this.value)" required>
+            <span id="salary-error" style="color: red;"></span><br>
+
+            <label for="children">Количество детей (это очень важно):</label>
+            <input type="text" th:value="${el.children}" name="children" id="children" placeholder="Это правда очень важно"
+                   class="form-control" onkeyup="validateChildren(this.value)" required>
+            <span id="children-error" style="color: red;"></span><br>
+
+            <button type="submit" class="btn btn-success">Изменить сотрудника</button>
         </form><br>
         <button class="btn btn-primary" type="button">
-            <a class="nav-link active" aria-current="page" href="/add/employee">Вернуться назад</a>
+            <a class="nav-link active" aria-current="page" href="/see/employee">Вернуться назад</a>
         </button>
     </div><br>
 </div>
+
+<script src="/js/edit_employees.js"></script>
 
 <div th:insert="blocks/footer :: footer"></div>
 

@@ -47,7 +47,7 @@ public class GenreController {
 
         Iterable<Genre> genres = genreRepository.findAll();
         for(Genre it: genres) {
-            if (Objects.equals(genreClass, it.getGenre_class()))
+            if (Objects.equals(genreClass, it.getGenreClass()))
                 return "redirect:/add/genre";
         }
 
@@ -59,7 +59,7 @@ public class GenreController {
     @PostMapping("/edit/genre/{id}")
     public String editGenreUpdate(@PathVariable(value = "id") long id, @RequestParam String genreClass, Model model) {
         Genre genre = genreRepository.findById(id).orElseThrow();
-        genre.setGenre_class(genreClass);
+        genre.setGenreClass(genreClass);
         genreRepository.save(genre);
         return "redirect:/add/genre";
     }

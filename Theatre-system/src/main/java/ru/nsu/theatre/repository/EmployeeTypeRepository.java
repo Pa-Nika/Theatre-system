@@ -4,4 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 import ru.nsu.theatre.entities.EmployeeType;
 
 public interface EmployeeTypeRepository extends CrudRepository<EmployeeType, Long> {
+        EmployeeType findByType(String type);
 }

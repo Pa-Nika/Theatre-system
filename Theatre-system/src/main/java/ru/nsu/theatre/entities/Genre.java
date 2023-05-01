@@ -20,11 +20,12 @@ public class Genre {
     private Long id;
 
     @Column(name = "genre_class")
-    private String genre_class;
+    private String genreClass;
 
-    public Genre(String  genre_class) {
-        this.genre_class = genre_class;
+    public Genre(String genreClass) {
+        this.genreClass = genreClass;
     }
 
     public Genre() { }
+
 }

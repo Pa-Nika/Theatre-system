@@ -1,21 +1,24 @@
 package ru.nsu.theatre.entities.HelpForNormForm;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-//@AllArgsConstructor
+
 @Getter
 @Setter
 @Embeddable
 public class ActorRoleId implements Serializable {
 
     @Column(name = "actor_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Long actorId;
 
     @Column(name = "role_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Long roleId;
 }

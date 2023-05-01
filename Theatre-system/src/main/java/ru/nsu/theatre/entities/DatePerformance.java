@@ -20,8 +20,8 @@ public class DatePerformance {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private DateOfPlaying date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "performance_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "FK_DatePerformance_Performance"), insertable = false, updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Performance performance;
-
 }

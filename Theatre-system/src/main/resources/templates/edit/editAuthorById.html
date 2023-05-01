@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Театр</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="shortcut icon"  type="image/x-icon" href="/img/icon.ico" >
+  <div th:insert="blocks/libs :: libs"></div>
+</head>
+
+<body>
+<div th:insert="blocks/header :: navigation"></div>
+
+<div class="back">
+  <div class="p-4 p-md-5 mb-5 mt-4 rounded text-bg-secondary">
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 fst-italic text-center">Редактирование автора произведения</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div th:each="el : ${author}">
+    <form id="edit-form" method="post">
+      <label for="name">Имя:</label>
+      <input type="text" th:value="${el.name}" name="name" id="name" placeholder="Введите имя" class="form-control" required><br>
+
+      <label for="country">Страна:</label>
+      <select class="form-select " id="country" name="country">
+        <option th:text="${el.country.country}"></option>
+        <option th:each="countryTypes: ${country}" th:unless="${countryTypes.country == el.country.country}" th:text="${countryTypes.country}"></option>
+      </select><br>
+
+      <label for="title">Произведение:</label>
+      <input type="text" th:value="${el.title}" name="title" id="title" placeholder="Введите название произведения" class="form-control" required><br>
+
+      <label for="genre">Жанр:</label>
+      <select class="form-select" id="genre" name="genre">
+        <option th:text="${el.genre.getGenreClass}"></option>
+        <option th:each="genres: ${genre}" th:unless="${genres.getGenreClass == el.genre.getGenreClass}" th:text="${genres.getGenreClass}"></option>
+      </select><br>
+
+      <label for="birthday">Дата рождения:</label>
+      <input type="text" th:value="${el.getNormDateOfBirth()}" class="form-control" id="birthday" name="birthday"
+             autocomplete="off" required><br>
+
+      <button type="submit" class="btn btn-success">Изменить автора</button>
+    </form><br>
+
+    <button class="btn btn-primary" type="button">
+      <a class="nav-link active" aria-current="page" href="/see/author">Вернуться назад</a>
+    </button>
+  </div><br>
+</div>
+
+<script src="/js/edit_author.js"></script>
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>

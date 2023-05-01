@@ -25,8 +25,5 @@ public class ActorTour {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "actor_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "FK_ActorTour_Actor"), insertable = false, updatable = false)
-    ////////////////////////??????????????????????
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Actor actor;
-
 }
