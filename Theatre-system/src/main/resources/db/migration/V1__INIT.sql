@@ -1,31 +1,31 @@
 CREATE TABLE IF NOT EXISTS Gender (
     id SERIAL PRIMARY KEY,
-    type VARCHAR NOT NULL
+    type VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Genre (
     id SERIAL PRIMARY KEY,
-    genre_class VARCHAR
+    genre_class VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS Country (
     id SERIAL PRIMARY KEY,
-    country VARCHAR
+    country VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS Author (
     id SERIAL PRIMARY KEY,
     country_id BIGINT NOT NULL REFERENCES Country,
     age_during_writing SMALLINT,
-    user_name VARCHAR,
-    title varchar NOT NULL,
+    user_name VARCHAR(50) NOT NULL,
+    title varchar(50) NOT NULL,
     genre_id BIGINT NOT NULL REFERENCES Genre,
     date_of_birth DATE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Employee_type (
     id SERIAL PRIMARY KEY,
-    type VARCHAR NOT NULL
+    type VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Employee (
@@ -34,10 +34,10 @@ CREATE TABLE IF NOT EXISTS Employee (
     date_of_birth DATE NOT NULL,
     age INTERVAL,
     gender_id BIGINT NOT NULL REFERENCES Gender,
-    start_work_date DATE,
-    children_count SMALLINT,
-    salary BIGINT,
-    user_name VARCHAR NOT NULL
+    start_work_date DATE NOT NULL,
+    children_count SMALLINT NOT NULL,
+    salary BIGINT NOT NULL,
+    user_name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Subscription (
@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS Actor (
 
 CREATE TABLE IF NOT EXISTS Achievement (
     id SERIAL PRIMARY KEY,
-    date_of_competition DATE,
-    title VARCHAR,
+    date_of_competition DATE NOT NULL,
+    title VARCHAR(50) NOT NULL,
     actor_id BIGINT NOT NULL REFERENCES Actor(id)
 );
 
@@ -71,15 +71,15 @@ CREATE TABLE IF NOT EXISTS Date_of_playing (
     date_of_performance DATE NOT NULL,
     season SMALLINT NOT NULL,
     count_of_tickets SMALLINT,
-    is_tour BOOLEAN
+    is_tour BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Performance (
     id SERIAL PRIMARY KEY,
     age_limit SMALLINT NOT NULL,
-    premiere_date DATE,
+    premiere_date DATE NOT NULL,
     author_id BIGINT REFERENCES Author,
-    time_duration NUMERIC(3)
+    time_duration NUMERIC(3) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Date_of_tour (
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS Director_Performance (
 
 CREATE TABLE IF NOT EXISTS Role (
     id SERIAL PRIMARY KEY,
-    user_name VARCHAR NOT NULL,
+    user_name VARCHAR(50) NOT NULL,
     is_main BOOLEAN NOT NULL,
     age SMALLINT NOT NULL,
     gender_id BIGINT NOT NULL REFERENCES Gender,

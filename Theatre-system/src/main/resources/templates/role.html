@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Театр</title>
+  <link type="image/x-icon" href="/img/icon.ico" rel="shortcut icon">
+  <link href="/css/style.css"  rel="stylesheet" type="text/css">
+
+  <div th:insert="blocks/libs :: libs"></div>
+
+</head>
+
+<body>
+<div th:insert="blocks/header :: navigation"></div>
+
+<div class="back">
+  <div class="p-4 p-md-5 mb-5 mt-4 rounded text-bg-secondary">
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 fst-italic text-center">Роли спектаклей театра</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container ml-5 mr-5 ">
+  <div class="col-md-12">
+    <form class="needs-validation" novalidate="" method="post" action="/role">
+
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label for="performance" class="form-label text-center">Спектакль:</label>
+          <select class="form-select " id="performance" name="performance" required>
+            <option th:selected="${namePerformance != null}"
+                    th:text="${namePerformance}"
+                    th:value="${namePerformance}">
+            </option>
+            <option th:if="${namePerformance != 'Любой'}">Любой</option>
+            <option th:each="perf: ${performances}"
+                    th:unless="${namePerformance == perf.author.title}"
+                    th:text="${perf.author.title}">
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn btn-primary mt-5" type="submit" >Найти</button>
+    </form><br>
+  </div>
+
+  <table class="table table-hover table-sm mt-5" >
+
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" class="text-center">Спектакль</th>
+      <th scope="col" class="text-center">Роль</th>
+      <th scope="col" class="text-center">Главная</th>
+      <th scope="col" class="text-center">Возраст героя</th>
+      <th scope="col" class="text-center">Пол героя</th>
+      <th scope="col" class="text-center">Рост героя</th>
+    </tr>
+    </thead>
+
+    <div th:each="element : ${roles}" scope="row">
+      <tbody>
+      <tr>
+        <th scope="row" th:text="${element.id}"></th>
+        <td><p th:text="${element.performance.author.title}" class="text-center"></p></td>
+        <td><p th:text="${element.name}" class="text-center"></p></td>
+        <td><p th:text="${element.main} ? 'Да' : 'Нет'" class="text-center"></p></td>
+        <td><p th:text="${element.age}" class="text-center"></p></td>
+        <td><p th:text="${element.gender.type}" class="text-center"></p></td>
+        <td><p th:text="${element.height}" class="text-center"></p></td>
+      </tr>
+      </tbody>
+    </div>
+  </table>
+</div>
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>

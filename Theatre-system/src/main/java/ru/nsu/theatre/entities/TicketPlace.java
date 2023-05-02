@@ -20,8 +20,7 @@ public class TicketPlace {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Ticket ticket;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "FK_TicketPlace_Place"), insertable = false, updatable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Place place;
 }

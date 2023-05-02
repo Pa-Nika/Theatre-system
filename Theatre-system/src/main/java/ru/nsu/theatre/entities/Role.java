@@ -35,15 +35,25 @@ public class Role {
     @Column(name = "age")
     private Integer age;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "gender_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Gender gender;
 
     @Column(name = "height")
     private Integer height;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne
     private Performance performance;
+
+    public Role(String name, Boolean main, Integer age, Gender gender, Integer height, Performance performance) {
+        this.name = name;
+        this.main = main;
+        this.age = age;
+        this.gender = gender;
+        this.height = height;
+        this.performance = performance;
+    }
+
+    public Role() {
+    }
 }

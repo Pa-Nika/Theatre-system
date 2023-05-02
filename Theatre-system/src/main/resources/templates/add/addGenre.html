@@ -24,11 +24,13 @@
 
     <div class="container mt-3">
         <form action="/add/genre" method="post">
-            <input type="text" name="genreClass" placeholder="Введите жанр спектакля" class="form-control" required><br>
-            <button type="submit" class="btn btn-success">Добавить жанр</button><br>
-            <button class="btn btn-primary mt-2" type="button">
-                <a class="nav-link active" aria-current="page" href="/see/performance">Вернуться назад</a>
-            </button>
+            <input type="text" name="genreClass" placeholder="Введите жанр спектакля" class="form-control" required maxlength="50"><br>
+            <div class="d-flex gap-1 justify-content-center py-5">
+                <button type="submit" class="btn btn-primary">Добавить жанр</button><br>
+                <button class="btn btn-success" type="button">
+                    <a class="nav-link active" aria-current="page" href="/see/performance">Вернуться назад</a>
+                </button>
+            </div>
         </form>
     </div>
 
@@ -38,6 +40,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col-mt-8" class="text-center">Название жанра</th>
+                <th scope="col" class="text-center"></th>
                 <th scope="col" class="text-center"></th>
             </tr>
             </thead>
@@ -56,6 +59,14 @@
                             </a>
                             <span class="visually-hidden">Dismiss</span>
                         </button>
+                    </td>
+                    <td>
+                        <form th:action=" '/remove/genre/' + ${genre.id}" method="post">
+                            <button class="btn btn-outline-danger rounded-circle p-2 lh-1 btn-icon" type="submit">
+                                <i class="fa fa-trash text-center"></i>
+                                <span class="visually-hidden">Dismiss</span>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             </div>

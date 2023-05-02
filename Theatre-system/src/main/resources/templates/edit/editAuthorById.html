@@ -26,7 +26,8 @@
   <div th:each="el : ${author}">
     <form id="edit-form" method="post">
       <label for="name">Имя:</label>
-      <input type="text" th:value="${el.name}" name="name" id="name" placeholder="Введите имя" class="form-control" required><br>
+      <input type="text" th:value="${el.name}" name="name" id="name"
+             placeholder="Введите имя" class="form-control" required maxlength="50"><br>
 
       <label for="country">Страна:</label>
       <select class="form-select " id="country" name="country">
@@ -35,7 +36,8 @@
       </select><br>
 
       <label for="title">Произведение:</label>
-      <input type="text" th:value="${el.title}" name="title" id="title" placeholder="Введите название произведения" class="form-control" required><br>
+      <input type="text" th:value="${el.title}" name="title" id="title"
+             placeholder="Введите название произведения" class="form-control" required maxlength="50"><br>
 
       <label for="genre">Жанр:</label>
       <select class="form-select" id="genre" name="genre">
@@ -51,7 +53,7 @@
     </form><br>
 
     <button class="btn btn-primary" type="button">
-      <a class="nav-link active" aria-current="page" href="/see/author">Вернуться назад</a>
+      <a class="nav-link active" aria-current="page" href="/see/performance">Вернуться назад</a>
     </button>
   </div><br>
 </div>

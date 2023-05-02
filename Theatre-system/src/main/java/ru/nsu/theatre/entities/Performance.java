@@ -34,13 +34,13 @@ public class Performance {
     @Column(name = "premiere_date")
     private LocalDate premiere;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "author_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Author author;
 
     @Column(name = "time_duration", precision = 3, scale = 0)
-    private String time;
+    private Integer time;
 
     @OneToMany(mappedBy = "performance", cascade = CascadeType.REMOVE)
     private List<DirectorPerformance> director;
@@ -55,5 +55,15 @@ public class Performance {
     public String getNormDatePremiere() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return this.premiere.format(formatter);
+    }
+
+    public Performance(Integer limit, LocalDate premiere, Author author, Integer time) {
+        this.limit = limit;
+        this.premiere = premiere;
+        this.author = author;
+        this.time = time;
+    }
+
+    public Performance() {
     }
 }

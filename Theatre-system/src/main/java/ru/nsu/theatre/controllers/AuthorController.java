@@ -89,6 +89,6 @@ public class AuthorController {
     public String editEmployeeUpdate(@PathVariable(value = "id") long id, Model model) {
         Author author = authorRepository.findById(id).orElseThrow();
         authorRepository.delete(author);
-        return "redirect:/see/author";
+        return "redirect:/see/performance";
     }
 }

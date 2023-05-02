@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Театр</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="shortcut icon"  type="image/x-icon" href="/img/icon.ico" >
+  <div th:insert="blocks/libs :: libs"></div>
+</head>
+
+<body>
+<div th:insert="blocks/header :: navigation"></div>
+
+<div class="back">
+  <div class="p-4 p-md-5 mb-5 mt-4 rounded text-bg-secondary">
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 fst-italic text-center">Редактирование спектаклей</h1>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-12 px-0">
+  <h3 class="display-6 fst-italic text-center">Информация</h3>
+</div>
+
+<div class="container mt-3">
+  <div th:each="el : ${performance}">
+    <form id="edit-form" method="post">
+      <label for="title">Произведение:</label>
+      <input class="form-control" type="text"  th:value="${el.author.title}"
+             aria-label="readonly input example" name="title" id="title" readonly><br>
+
+      <label for="premiere">Дата ПРЕМЬЕРЫ БООООООООООООМ:</label>
+      <input type="text" th:value="${el.getNormDatePremiere()}" class="form-control" id="premiere" name="premiere"
+             autocomplete="off" required><br>
+
+      <label for="limit">Возрастное ограничение:</label>
+      <input type="text" name="limit" id="limit" placeholder="Введите возрастное ограничение"
+             th:value="${el.limit}" class="form-control" onkeyup="validateLimit(this.value)" required>
+      <span id="limit-error" style="color: red;"></span><br>
+
+      <label for="time">Длительность</label>
+      <input type="text" name="time" id="time" placeholder="Введите длительность торжества"
+             th:value="${el.time}" class="form-control" onkeyup="validateTime(this.value)" required>
+      <span id="time-error" style="color: red;"></span><br>
+
+      <button type="submit" class="btn btn-primary">Изменить пектакль</button>
+    </form><br>
+<!--  </div><br>-->
+
+  <div class="col-md-12 px-0">
+    <h3 class="display-6 fst-italic text-center">Роли в спектакле</h3>
+  </div>
+
+  <table class="table table-hover table-sm mt-5" >
+
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" class="text-center">Спектакль</th>
+      <th scope="col" class="text-center">Роль</th>
+      <th scope="col" class="text-center">Главная</th>
+      <th scope="col" class="text-center">Возраст героя</th>
+      <th scope="col" class="text-center">Пол героя</th>
+      <th scope="col" class="text-center">Рост героя (см)</th>
+      <th scope="col" class="text-center"></th>
+      <th scope="col" class="text-center"></th>
+    </tr>
+    </thead>
+
+    <div th:each="element : ${roles}" scope="row">
+      <tbody>
+      <tr>
+        <th scope="row" th:text="${element.id}"></th>
+        <td><p th:text="${element.performance.author.title}" class="text-center"></p></td>
+        <td><p th:text="${element.name}" class="text-center"></p></td>
+        <td><p th:text="${element.main} ? 'Да' : 'Нет'" class="text-center"></p></td>
+        <td><p th:text="${element.age}" class="text-center"></p></td>
+        <td><p th:text="${element.gender.type}" class="text-center"></p></td>
+        <td><p th:text="${element.height}" class="text-center"></p></td>
+        <td>
+          <button class="btn btn-outline-primary rounded-circle p-2 lh-1 btn-icon" type="button">
+            <a th:href=" '/edit/role/' + ${element.id}">
+              <i class="fa fa-pencil text-center"></i>
+            </a>
+            <span class="visually-hidden">Dismiss</span>
+          </button>
+        </td>
+        <td>
+          <form th:action=" '/remove/role/' + ${element.id} + '/' + ${el.id}" method="post">
+            <button class="btn btn-outline-danger rounded-circle p-2 lh-1 btn-icon" type="submit">
+              <i class="fa fa-trash text-center"></i>
+              <span class="visually-hidden">Dismiss</span>
+            </button>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </div>
+  </table>
+
+    <form th:action="@{'/add/role/' + ${el.id}}" method="get">
+      <button class="btn btn-primary" type="submit">Добавить роль</button>
+    </form>
+<!--    -->
+<!--    <button class="btn btn-primary" type="button">-->
+<!--      <a class="nav-link active" aria-current="page" href="/add/role">Добавить роль</a>-->
+<!--    </button><br>-->
+
+
+  </div><br>
+<!--  <button class="btn btn-primary" type="button">-->
+<!--    <a class="nav-link active" aria-current="page" href="/add/role">Добавить роль</a>-->
+<!--  </button><br>-->
+
+  <div class="col-md-12 px-0">
+    <h3 class="display-6 fst-italic text-center">Автор спектакля</h3>
+  </div>
+
+  <table class="table table-hover table-sm mt-5" >
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" class="text-center">Имя</th>
+      <th scope="col" class="text-center">Страна</th>
+      <th scope="col" class="text-center">Произведение</th>
+      <th scope="col" class="text-center">Жанр произведения</th>
+      <th scope="col" class="text-center">Дата рождения</th>
+      <th scope="col" class="text-center"></th>
+      <th scope="col" class="text-center"></th>
+    </tr>
+    </thead>
+
+    <div th:each="element : ${author}" scope="row">
+      <tbody>
+      <tr>
+        <th scope="row" th:text="${element.id}"></th>
+        <td><p th:text="${element.name}" class="text-center"></p></td>
+        <td><p th:text="${element.country.country}" class="text-center"></p></td>
+        <td><p th:text="${element.title}" class="text-center"></p></td>
+        <td><p th:text="${element.genre.getGenreClass}" class="text-center"></p></td>
+        <td><p th:text="${element.getNormDateOfBirth()}" class="text-center"></p></td>
+        <td>
+          <button class="btn btn-outline-primary rounded-circle p-2 lh-1 btn-icon" type="button">
+            <a th:href=" '/edit/author/' + ${element.id}">
+              <i class="fa fa-pencil text-center"></i>
+            </a>
+            <span class="visually-hidden">Dismiss</span>
+          </button>
+        </td>
+        <td>
+          <form th:action=" '/remove/author/' + ${element.id}" method="post">
+            <button class="btn btn-outline-danger rounded-circle p-2 lh-1 btn-icon" type="submit">
+              <i class="fa fa-trash text-center"></i>
+              <span class="visually-hidden">Dismiss</span>
+            </button>
+          </form>
+        </td>
+      </tr>
+    </div>
+  </table>
+
+
+
+  <button class="btn btn-success mt-2" type="button">
+    <a class="nav-link active" aria-current="page" href="/see/performance">Вернуться назад</a>
+  </button>
+
+</div>
+
+<script src="/js/add_performance.js"></script>
+
+<div th:insert="blocks/footer :: footer"></div>
+
+
+
+</body>
+</html>

@@ -26,7 +26,8 @@
     <div th:each="el : ${employee}">
         <form id="edit-form" method="post">
             <label for="name">Имя:</label>
-            <input type="text" th:value="${el.name}" name="name" id="name" placeholder="Введите имя" class="form-control" required><br>
+            <input type="text" th:value="${el.name}" name="name" id="name"
+                   placeholder="Введите имя" class="form-control" required maxlength="50"><br>
 
             <label for="type">Должность:</label>
             <select class="form-select " id="type" name="type">

@@ -19,7 +19,7 @@ public class ActorPlayingRole {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "FK_ActorPlayingRole_Role"), insertable = false, updatable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     private Role role;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

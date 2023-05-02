@@ -2,6 +2,7 @@ package ru.nsu.theatre.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,9 @@ import ru.nsu.theatre.repository.EmployeeTypeRepository;
 import ru.nsu.theatre.repository.GenderRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -36,7 +39,6 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeTypeRepository employeeTypeRepository;
-
 
     @GetMapping("/employees")
     public String getAllEmployees(Model model) {
@@ -61,6 +63,11 @@ public class EmployeeController {
     public String editEmployee(@PathVariable(value = "id") long id, Model model) {
         if (!employeeRepository.existsById(id))
             return "see/seeEmployees";
+
+//        StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("get_employee_by_id", Employee.class);
+//        storedProcedure.registerStoredProcedureParameter("employee_id", Integer.class, ParameterMode.IN);
+//        storedProcedure.setParameter("employee_id", id);
+//        List<Employee> employee = storedProcedure.getResultList();
 
         Optional<Employee> employee = employeeRepository.findById(id);
         ArrayList<Employee> res = new ArrayList<>();

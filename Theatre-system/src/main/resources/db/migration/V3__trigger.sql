@@ -107,3 +107,18 @@ CREATE TRIGGER cascade_delete_performance
     BEFORE DELETE ON Performance
     FOR EACH ROW
     EXECUTE FUNCTION delete_performance();
+
+----------------------------------------------------------
+CREATE OR REPLACE FUNCTION delete_genre()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM Author WHERE genre_id = OLD.id;
+    DELETE FROM Subscription WHERE genre_id = OLD.id;
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER cascade_delete_genre
+    BEFORE DELETE ON Genre
+    FOR EACH ROW
+    EXECUTE FUNCTION delete_genre();

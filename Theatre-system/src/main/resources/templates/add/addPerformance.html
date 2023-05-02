@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Театр</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="shortcut icon"  type="image/x-icon" href="/img/icon.ico" >
+  <div th:insert="blocks/libs :: libs"></div>
+</head>
+
+<body>
+<div th:insert="blocks/header :: navigation"></div>
+
+<div class="back">
+  <div class="p-4 p-md-5 mb-5 mt-4 rounded text-bg-secondary">
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 fst-italic text-center">Добавление нового спектакля</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <form id="edit-form" method="post">
+    <label for="title">Произведение:</label>
+    <select class="form-select " id="title" name="title" required>
+      <option></option>
+      <option th:each="author: ${authors}" th:text="${author.title}"></option>
+    </select><br>
+
+    <label for="premiere">Дата ПРЕМЬЕРЫ БООООООООООООМ:</label>
+    <input type="text" class="form-control" id="premiere" name="premiere"
+           autocomplete="off" required><br>
+
+    <label for="limit">Возрастное ограничение</label>
+    <input type="text" name="limit" id="limit" placeholder="Введите возрастное ограничение"
+           class="form-control" onkeyup="validateLimit(this.value)" required>
+    <span id="limit-error" style="color: red;"></span><br>
+
+    <label for="time">Длительность (мин)</label>
+    <input type="text" name="time" id="time" placeholder="Введите длительность торжества"
+           class="form-control" onkeyup="validateTime(this.value)" required>
+    <span id="time-error" style="color: red;"></span><br>
+
+    <button type="submit" class="btn btn-success">Добавить спектакль</button>
+  </form><br>
+
+  <button class="btn btn-primary" type="button">
+    <a class="nav-link active" aria-current="page" href="/see/performance">Вернуться назад</a>
+  </button>
+</div>
+
+<script src="/js/add_performance.js"></script>
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>

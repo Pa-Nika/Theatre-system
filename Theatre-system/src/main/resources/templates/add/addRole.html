@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Театр</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="shortcut icon"  type="image/x-icon" href="/img/icon.ico" >
+  <div th:insert="blocks/libs :: libs"></div>
+</head>
+
+<body>
+<div th:insert="blocks/header :: navigation"></div>
+
+<div class="back">
+  <div class="p-4 p-md-5 mb-5 mt-4 rounded text-bg-secondary">
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 fst-italic text-center">Добавление роли в произведение</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div th:each="el : ${performance}">
+    <form id="edit-form" method="post">
+      <label for="title">Произведение:</label>
+      <input class="form-control" type="text"  th:value="${el.author.title}"
+             aria-label="readonly input example" name="title" id="title" readonly><br>
+
+      <label for="name">Герой:</label>
+      <input type="text" name="name" id="name"
+             placeholder="Введите имя героя" class="form-control" required maxlength="50"><br>
+
+      <label for="gender">Пол:</label>
+      <select class="form-select" id="gender" name="gender" required>
+        <option></option>
+        <option th:each="gender: ${genders}" th:text="${gender.type}"></option>
+      </select><br>
+
+      <label for="height">Введите рост героя:</label>
+      <input type="text" name="height" id="height" placeholder="РОСТ"
+             class="form-control" onkeyup="validateHeight(this.value)" required>
+      <span id="height-error" style="color: red;"></span><br>
+
+      <label for="age">Возраст героя:</label>
+      <input type="text" name="age" id="age" placeholder="Возраст"
+             class="form-control" onkeyup="validateAge(this.value)" required>
+      <span id="age-error" style="color: red;"></span><br>
+
+      <label for="choice">Главная роль?</label><br>
+      <label><input type="radio" id="choice" name="choice" th:value="true">Да</label><br>
+      <label><input type="radio" name="choice" th:value="false">Нет</label><br>
+
+      <button type="submit" class="btn btn-primary mt-2">Создать роль</button>
+    </form><br>
+
+    <form th:action="@{'/edit/performance/' + ${el.id}}" method="get">
+      <button class="btn btn-success" type="submit">Вернуться назад</button>
+    </form>
+
+  </div><br>
+</div>
+
+<script src="/js/edit_role.js"></script>
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>

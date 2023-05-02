@@ -25,7 +25,7 @@
 <div class="container mt-3">
   <div th:each="el : ${genre}">
     <form method="post">
-        <input type="text" th:value="${el.getGenreClass}" name="genreClass" placeholder="Введите жанр" class="form-control"><br>
+        <input type="text" th:value="${el.getGenreClass}" name="genreClass" placeholder="Введите жанр" class="form-control" maxlength="50"><br>
         <button type="submit" class="btn btn-success">Изменить жанр</button>
     </form><br>
     <button class="btn btn-primary" type="button">
