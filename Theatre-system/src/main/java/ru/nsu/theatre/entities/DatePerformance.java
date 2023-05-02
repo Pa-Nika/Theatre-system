@@ -15,13 +15,11 @@ public class DatePerformance {
     @EmbeddedId
     private DatePerformanceId id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "date_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "FK_DatePerformance_Date"), insertable = false, updatable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private DateOfPlaying date;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "performance_id", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "FK_DatePerformance_Performance"), insertable = false, updatable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Performance performance;
 }

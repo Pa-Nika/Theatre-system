@@ -29,4 +29,11 @@ public class Director {
 
     @OneToMany(mappedBy = "director", cascade = CascadeType.REMOVE)
     private List<DirectorPerformance> performances;
+
+    public Director(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Director() {
+    }
 }

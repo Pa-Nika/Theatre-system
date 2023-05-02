@@ -67,7 +67,10 @@ INSERT INTO employee
 
  INSERT INTO director
  (id, employee_id)
- VALUES (1, 5);
+ VALUES (1, 3),
+        (2, 7),
+        (3, 9),
+        (4, 12);
 
  INSERT INTO achievement
  (id, date_of_competition, title, actor_id)
@@ -102,7 +105,11 @@ INSERT INTO employee
 
  INSERT INTO director_performance
  (director_id, performance_id)
- VALUES (1, 1);
+ VALUES (1, 1),
+        (1, 2),
+        (2, 2),
+        (3, 3),
+        (4, 1);
 
 INSERT INTO date_of_playing
 (id, date_of_performance, count_of_tickets, is_tour, season)

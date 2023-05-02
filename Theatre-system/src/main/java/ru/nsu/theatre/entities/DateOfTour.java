@@ -29,9 +29,8 @@ public class DateOfTour {
     @Column(name = "date_end")
     private Date date_end;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "performance_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Performance performance;
 
 }

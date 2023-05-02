@@ -106,16 +106,41 @@
     <form th:action="@{'/add/role/' + ${el.id}}" method="get">
       <button class="btn btn-primary" type="submit">Добавить роль</button>
     </form>
-<!--    -->
-<!--    <button class="btn btn-primary" type="button">-->
-<!--      <a class="nav-link active" aria-current="page" href="/add/role">Добавить роль</a>-->
-<!--    </button><br>-->
+
+
+    <div class="col-md-12 px-0">
+      <h3 class="display-6 fst-italic text-center">Режиссеры спектакля</h3>
+    </div>
+    <table class="table table-hover table-sm mt-5" >
+
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" class="text-center">Режиссер</th>
+        <th scope="col" class="text-center"></th>
+      </tr>
+      </thead>
+
+      <div th:each="director : ${directors}" scope="row">
+        <tbody>
+        <tr>
+          <th scope="row" th:text="${director.id}"></th>
+          <td><p th:text="${director.employee.name}" class="text-center"></p></td>
+          <td>
+            <form th:action=" '/remove/director/performance/' + ${director.id} + '/' + ${el.id}" method="post">
+              <button class="btn btn-outline-danger rounded-circle p-2 lh-1 btn-icon" type="submit">
+                <i class="fa fa-trash text-center"></i>
+                <span class="visually-hidden">Dismiss</span>
+              </button>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </div>
+    </table>
 
 
   </div><br>
-<!--  <button class="btn btn-primary" type="button">-->
-<!--    <a class="nav-link active" aria-current="page" href="/add/role">Добавить роль</a>-->
-<!--  </button><br>-->
 
   <div class="col-md-12 px-0">
     <h3 class="display-6 fst-italic text-center">Автор спектакля</h3>

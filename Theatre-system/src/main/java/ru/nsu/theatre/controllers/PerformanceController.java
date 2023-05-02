@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.nsu.theatre.entities.*;
-import ru.nsu.theatre.repository.AuthorRepository;
-import ru.nsu.theatre.repository.PerformanceRepository;
-import ru.nsu.theatre.repository.RoleRepository;
+import ru.nsu.theatre.entities.HelpForNormForm.DirectorPerformanceId;
+import ru.nsu.theatre.repository.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,6 +27,9 @@ public class PerformanceController {
     private AuthorRepository authorRepository;
 
     @Autowired
+    private DirectorPerformanceRepository directorPerformanceRepository;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     @GetMapping("/performance")
@@ -39,14 +41,14 @@ public class PerformanceController {
     }
 
     @GetMapping("/see/performance")
-    public String getAddPerformances(Model model) {
+    public String getSeePerformances(Model model) {
         Iterable<Performance> performances = performanceRepository.findAll();
         model.addAttribute("performance", performances);
         return "see/seePerformance";
     }
 
     @GetMapping("/add/performance")
-    public String addAuthorGet(Model model) {
+    public String addPerformanceGet(Model model) {
 
         List<Author> authors = new ArrayList<>();
         for (Author author : authorRepository.findAll()) {
@@ -59,7 +61,7 @@ public class PerformanceController {
     }
 
     @PostMapping("/add/performance")
-    public String addAuthorPost(@RequestParam String title, @RequestParam Integer time,
+    public String addPerformancePost(@RequestParam String title, @RequestParam Integer time,
                                 @RequestParam Integer limit, @RequestParam LocalDate premiere, Model model) {
         Author author = authorRepository.findByTitle(title);
         Performance performance = new Performance(limit, premiere, author, time);
@@ -83,17 +85,34 @@ public class PerformanceController {
         }
 
         List<Role> role = roleRepository.findByPerformanceId(id);
+        List<Director> directors = directorPerformanceRepository.findDirectorsByPerformance(res.get(0));
 
         model.addAttribute("performance", res);
         model.addAttribute("author", author);
         model.addAttribute("roles", role);
+        model.addAttribute("directors", directors);
 
         return "edit/editPerformanceById";
     }
 
+    @PostMapping("/remove/director/performance/{id}/{id_p}")
+    public String removeDirectorPerformance(@PathVariable(value = "id") long id,
+                                            @PathVariable(value = "id_p") long idPerformance, Model model) {
+
+        DirectorPerformanceId dpId = new DirectorPerformanceId();
+        dpId.setDirectorId(id);
+        dpId.setPerformanceId(idPerformance);
+
+        Optional<DirectorPerformance> directorPerformance = directorPerformanceRepository.findById(dpId);
+        ArrayList<DirectorPerformance> res = new ArrayList<>();
+        directorPerformance.ifPresent(res::add);
+
+        directorPerformanceRepository.delete(res.get(0));
+        return "redirect:/edit/performance/{id_p}";
+    }
 
     @PostMapping("/edit/performance/{id}")
-    public String editAuthorUpdate(@PathVariable(value = "id") long id, @RequestParam String title,
+    public String editPerformance(@PathVariable(value = "id") long id, @RequestParam String title,
                                    @RequestParam Integer time, @RequestParam Integer limit,
                                    @RequestParam LocalDate premiere, Model model) {
         Performance performance = performanceRepository.findById(id).orElseThrow();
@@ -105,7 +124,7 @@ public class PerformanceController {
     }
 
     @PostMapping("/remove/performance/{id}")
-    public String editEmployeeUpdate(@PathVariable(value = "id") long id, Model model) {
+    public String removePerformance(@PathVariable(value = "id") long id, Model model) {
         Performance performance = performanceRepository.findById(id).orElseThrow();
         performanceRepository.delete(performance);
         return "redirect:/see/performance";

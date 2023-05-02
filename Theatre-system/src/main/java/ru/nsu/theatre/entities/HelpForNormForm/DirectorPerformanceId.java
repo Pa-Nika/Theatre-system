@@ -15,10 +15,8 @@ import java.io.Serializable;
 public class DirectorPerformanceId implements Serializable {
 
     @Column(name = "director_id")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
     private Long directorId;
 
     @Column(name = "performance_id")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
     private Long performanceId;
 }
