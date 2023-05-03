@@ -25,36 +25,7 @@
     </div>
 
     <div class="container ml-5 mr-5 ">
-        <header class="col-md-12">
-            <form class="needs-validation" novalidate="" method="post" action="/employees">
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <label for="type" class="form-label text-center">Должность</label>
-                            <select class="form-select " id="type" name="type">
-                                <option value="">Любая</option>
-                                <option th:each="types: ${employeeTypes}"
-                                        th:text="${types.type}">
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label for="gender" class="form-label text-center">Пол</label>
-                            <select class="form-select" id="gender" name="gender">
-                                <option value="">Любой</option>
-                                <option th:each="genders: ${genders}"
-                                        th:text="${genders.type}">
-                                </option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <button class="btn btn-primary pull-left mt-5" type="submit" >Найти</button>
-            </form><br>
-        </header>
-
-        <table class="table table-hover table-sm mt-5" >
+        <table class="table table-hover table-sm mt-5" id="employee-list">
 
             <thead>
             <tr>
@@ -86,6 +57,20 @@
                 </tbody>
             </div>
         </table>
+
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation">
+                <ul class="nav nav-pills">
+                    <li class="nav-item disabled"
+                        th:each="i : ${#numbers.sequence(0, employees.totalPages - 1)}">
+                        <a th:href="@{/employees(page=${i})}"
+                           th:text="${i}" class="nav-link"
+                           th:classappend="${currentPage == i} ? 'active' : ''">
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 
     <div th:insert="blocks/footer :: footer"></div>

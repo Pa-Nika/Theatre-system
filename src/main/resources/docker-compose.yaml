@@ -1,0 +1,11 @@
+version: "3.5"
+
+services:
+  dbSport:
+    image: postgres:latest
+    container_name: theatre
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: postgres
+    ports:
+        - "5432:5432"

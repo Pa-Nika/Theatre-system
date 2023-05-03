@@ -2,6 +2,10 @@ package ru.nsu.theatre.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,23 +32,31 @@ public class RoleController {
     private GenderRepository genderRepository;
 
     @GetMapping("/role")
-    public String getAllRoles(Model model) {
+    public String getAllRoles(@RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "5") int size,
+                              Model model) {
         String str = "Любой";
-        Iterable<Role> role = roleRepository.findAll();
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
+        Page<Role> role = roleRepository.findAll(pageable);
         Iterable<Performance> performances = performanceRepository.findAll();
         model.addAttribute("roles", role);
         model.addAttribute("performances", performances);
         model.addAttribute("namePerformance", str);
+        model.addAttribute("currentPage", page);
         return "role";
     }
 
     @PostMapping("/role")
-    public String postAllRoles(@RequestParam String performance, Model model) {
-        Iterable<Role> role = roleRepository.findByPerformance(performance);
+    public String postAllRoles(@RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "5") int size,
+                               @RequestParam String performance, Model model) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
+        Page<Role> role = roleRepository.findByPerformance(performance, pageable);
         Iterable<Performance> performances = performanceRepository.findAll();
         model.addAttribute("roles", role);
         model.addAttribute("performances", performances);
         model.addAttribute("namePerformance", performance);
+        model.addAttribute("currentPage", page);
         return "role";
     }
 

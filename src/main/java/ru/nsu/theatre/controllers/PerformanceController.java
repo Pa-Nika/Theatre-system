@@ -2,6 +2,10 @@ package ru.nsu.theatre.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +37,13 @@ public class PerformanceController {
     private RoleRepository roleRepository;
 
     @GetMapping("/performance")
-    public String getAllPerformances(Model model) {
-        Iterable<Performance> performances = performanceRepository.findAll();
+    public String getAllPerformances(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "5") int size,
+                                     Model model) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
+        Page<Performance> performances = performanceRepository.findAll(pageable);
 
+        model.addAttribute("currentPage", page);
         model.addAttribute("performances", performances);
         return "performance";
     }
